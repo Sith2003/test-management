@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nest start --watch",
     "start": "nest start",
-    "build": "prisma generate && ./node_modules/.bin/nest build",
+    "build": "prisma generate && nest build",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "db:generate": "prisma generate",
@@ -14,6 +14,7 @@
     "db:seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
+    "@nestjs/cli": "^10.0.0",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^10.0.0",
@@ -36,10 +37,10 @@
     "pdfmake": "^0.3.10",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
+    "typescript": "^5.0.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "@nestjs/cli": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
     "@types/bcrypt": "^5.0.2",
     "@types/cookie-parser": "^1.4.6",
@@ -51,7 +52,6 @@
     "@typescript-eslint/parser": "^6.0.0",
     "prisma": "^5.7.1",
     "ts-node": "^10.9.1",
-    "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.0.0"
+    "tsconfig-paths": "^4.2.0"
   }
 }
