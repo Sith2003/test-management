@@ -1,0 +1,259 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e140]:
+    - complementary [ref=e141]:
+      - generic [ref=e142]:
+        - img "QA" [ref=e144]
+        - generic [ref=e145]: Quality Intelligence
+      - navigation [ref=e146]:
+        - link "Dashboard" [ref=e147] [cursor=pointer]:
+          - /url: /dashboard
+          - img [ref=e149]
+          - text: Dashboard
+        - link "Projects" [ref=e151] [cursor=pointer]:
+          - /url: /projects
+          - img [ref=e153]
+          - text: Projects
+        - generic [ref=e155]:
+          - paragraph [ref=e156]: Admin
+          - link "User Management" [ref=e158] [cursor=pointer]:
+            - /url: /admin/users
+            - img [ref=e160]
+            - text: User Management
+    - generic [ref=e162]:
+      - banner [ref=e163]:
+        - button "Notifications" [ref=e165] [cursor=pointer]:
+          - img [ref=e166]
+        - link "A Admin User ADMIN" [ref=e168] [cursor=pointer]:
+          - /url: /profile
+          - generic [ref=e169]: A
+          - generic [ref=e170]:
+            - paragraph [ref=e171]: Admin User
+            - paragraph [ref=e172]: ADMIN
+        - button "Sign out" [ref=e173] [cursor=pointer]:
+          - img [ref=e174]
+          - generic [ref=e176]: Sign out
+      - main [ref=e177]:
+        - generic [ref=e178]:
+          - generic [ref=e179]:
+            - generic [ref=e180]:
+              - heading "Projects" [level=1] [ref=e181]
+              - paragraph [ref=e182]: Manage your test projects
+            - button "New Project" [ref=e183] [cursor=pointer]:
+              - img [ref=e185]
+              - text: New Project
+          - generic [ref=e188]:
+            - generic [ref=e189]:
+              - generic [ref=e190]:
+                - button "Assign developer" [ref=e191] [cursor=pointer]:
+                  - img [ref=e192]
+                - button "Delete project" [ref=e194] [cursor=pointer]:
+                  - img [ref=e195]
+              - generic [ref=e197]:
+                - generic [ref=e198]:
+                  - generic [ref=e200]: S—
+                  - generic [ref=e201]:
+                    - heading "ShopEase — E-Commerce Platform" [level=3] [ref=e202]
+                    - generic [ref=e203]: DEMO
+                - paragraph [ref=e204]: "End-to-end QA for an online shopping platform: auth, catalog, cart, checkout, orders & admin."
+                - generic [ref=e205]:
+                  - generic [ref=e206]:
+                    - img [ref=e207]
+                    - generic [ref=e209]: "35"
+                    - generic [ref=e210]: Cases
+                  - generic [ref=e211]:
+                    - img [ref=e212]
+                    - generic [ref=e214]: "4"
+                    - generic [ref=e215]: Runs
+                  - generic [ref=e216]:
+                    - img [ref=e217]
+                    - generic [ref=e219]: "5"
+                    - generic [ref=e220]: Members
+                - generic [ref=e221]:
+                  - link "View Cases" [ref=e222] [cursor=pointer]:
+                    - /url: /projects/57746261-d82c-434b-a693-fde5037af323/cases
+                    - img [ref=e223]
+                    - text: View Cases
+                  - link "View Runs" [ref=e225] [cursor=pointer]:
+                    - /url: /projects/57746261-d82c-434b-a693-fde5037af323/runs
+                    - img [ref=e226]
+                    - text: View Runs
+            - generic [ref=e228]:
+              - generic [ref=e229]:
+                - button "Assign developer" [ref=e230] [cursor=pointer]:
+                  - img [ref=e231]
+                - button "Delete project" [ref=e233] [cursor=pointer]:
+                  - img [ref=e234]
+              - generic [ref=e236]:
+                - generic [ref=e237]:
+                  - img "Agro Link" [ref=e239]
+                  - generic [ref=e240]:
+                    - heading "Agro Link" [level=3] [ref=e241]
+                    - generic [ref=e242]: AL
+                - paragraph [ref=e243]: No description
+                - generic [ref=e244]:
+                  - generic [ref=e245]:
+                    - img [ref=e246]
+                    - generic [ref=e248]: "0"
+                    - generic [ref=e249]: Cases
+                  - generic [ref=e250]:
+                    - img [ref=e251]
+                    - generic [ref=e253]: "0"
+                    - generic [ref=e254]: Runs
+                  - generic [ref=e255]:
+                    - img [ref=e256]
+                    - generic [ref=e258]: "1"
+                    - generic [ref=e259]: Members
+                - generic [ref=e260]:
+                  - link "View Cases" [ref=e261] [cursor=pointer]:
+                    - /url: /projects/deb39f6a-1946-48a9-88ce-8cf7bce8ad73/cases
+                    - img [ref=e262]
+                    - text: View Cases
+                  - link "View Runs" [ref=e264] [cursor=pointer]:
+                    - /url: /projects/deb39f6a-1946-48a9-88ce-8cf7bce8ad73/runs
+                    - img [ref=e265]
+                    - text: View Runs
+            - generic [ref=e267]:
+              - generic [ref=e268]:
+                - button "Assign developer" [ref=e269] [cursor=pointer]:
+                  - img [ref=e270]
+                - button "Delete project" [ref=e272] [cursor=pointer]:
+                  - img [ref=e273]
+              - generic [ref=e275]:
+                - generic [ref=e276]:
+                  - img "Run For Our Forests" [ref=e278]
+                  - generic [ref=e279]:
+                    - heading "Run For Our Forests" [level=3] [ref=e280]
+                    - generic [ref=e281]: RFOF
+                - paragraph [ref=e282]: No description
+                - generic [ref=e283]:
+                  - generic [ref=e284]:
+                    - img [ref=e285]
+                    - generic [ref=e287]: "0"
+                    - generic [ref=e288]: Cases
+                  - generic [ref=e289]:
+                    - img [ref=e290]
+                    - generic [ref=e292]: "0"
+                    - generic [ref=e293]: Runs
+                  - generic [ref=e294]:
+                    - img [ref=e295]
+                    - generic [ref=e297]: "1"
+                    - generic [ref=e298]: Members
+                - generic [ref=e299]:
+                  - link "View Cases" [ref=e300] [cursor=pointer]:
+                    - /url: /projects/d6ef10c5-6766-440e-a2dc-ca47f7df6b88/cases
+                    - img [ref=e301]
+                    - text: View Cases
+                  - link "View Runs" [ref=e303] [cursor=pointer]:
+                    - /url: /projects/d6ef10c5-6766-440e-a2dc-ca47f7df6b88/runs
+                    - img [ref=e304]
+                    - text: View Runs
+            - generic [ref=e306]:
+              - generic [ref=e307]:
+                - button "Assign developer" [ref=e308] [cursor=pointer]:
+                  - img [ref=e309]
+                - button "Delete project" [ref=e311] [cursor=pointer]:
+                  - img [ref=e312]
+              - generic [ref=e314]:
+                - generic [ref=e315]:
+                  - img "IOF" [ref=e317]
+                  - generic [ref=e318]:
+                    - heading "I-Office+" [level=3] [ref=e319]
+                    - generic [ref=e320]: IOF
+                - paragraph [ref=e321]: No description
+                - generic [ref=e322]:
+                  - generic [ref=e323]:
+                    - img [ref=e324]
+                    - generic [ref=e326]: "0"
+                    - generic [ref=e327]: Cases
+                  - generic [ref=e328]:
+                    - img [ref=e329]
+                    - generic [ref=e331]: "0"
+                    - generic [ref=e332]: Runs
+                  - generic [ref=e333]:
+                    - img [ref=e334]
+                    - generic [ref=e336]: "1"
+                    - generic [ref=e337]: Members
+                - generic [ref=e338]:
+                  - link "View Cases" [ref=e339] [cursor=pointer]:
+                    - /url: /projects/637955f2-848f-4fde-8050-8c699358c3cb/cases
+                    - img [ref=e340]
+                    - text: View Cases
+                  - link "View Runs" [ref=e342] [cursor=pointer]:
+                    - /url: /projects/637955f2-848f-4fde-8050-8c699358c3cb/runs
+                    - img [ref=e343]
+                    - text: View Runs
+            - generic [ref=e345]:
+              - generic [ref=e346]:
+                - button "Assign developer" [ref=e347] [cursor=pointer]:
+                  - img [ref=e348]
+                - button "Delete project" [ref=e350] [cursor=pointer]:
+                  - img [ref=e351]
+              - generic [ref=e353]:
+                - generic [ref=e354]:
+                  - img "DTOP Fuel" [ref=e356]
+                  - generic [ref=e357]:
+                    - heading "DTOP Fuel" [level=3] [ref=e358]
+                    - generic [ref=e359]: DF
+                - paragraph [ref=e360]: No description
+                - generic [ref=e361]:
+                  - generic [ref=e362]:
+                    - img [ref=e363]
+                    - generic [ref=e365]: "0"
+                    - generic [ref=e366]: Cases
+                  - generic [ref=e367]:
+                    - img [ref=e368]
+                    - generic [ref=e370]: "0"
+                    - generic [ref=e371]: Runs
+                  - generic [ref=e372]:
+                    - img [ref=e373]
+                    - generic [ref=e375]: "2"
+                    - generic [ref=e376]: Members
+                - generic [ref=e377]:
+                  - link "View Cases" [ref=e378] [cursor=pointer]:
+                    - /url: /projects/40430d74-756b-425f-ba91-8cb89379fe4d/cases
+                    - img [ref=e379]
+                    - text: View Cases
+                  - link "View Runs" [ref=e381] [cursor=pointer]:
+                    - /url: /projects/40430d74-756b-425f-ba91-8cb89379fe4d/runs
+                    - img [ref=e382]
+                    - text: View Runs
+            - generic [ref=e384]:
+              - generic [ref=e385]:
+                - button "Assign developer" [ref=e386] [cursor=pointer]:
+                  - img [ref=e387]
+                - button "Delete project" [ref=e389] [cursor=pointer]:
+                  - img [ref=e390]
+              - generic [ref=e392]:
+                - generic [ref=e393]:
+                  - img "DTOP Move" [ref=e395]
+                  - generic [ref=e396]:
+                    - heading "DTOP MoVe" [level=3] [ref=e397]
+                    - generic [ref=e398]: DM
+                - paragraph [ref=e399]: No description
+                - generic [ref=e400]:
+                  - generic [ref=e401]:
+                    - img [ref=e402]
+                    - generic [ref=e404]: "81"
+                    - generic [ref=e405]: Cases
+                  - generic [ref=e406]:
+                    - img [ref=e407]
+                    - generic [ref=e409]: "1"
+                    - generic [ref=e410]: Runs
+                  - generic [ref=e411]:
+                    - img [ref=e412]
+                    - generic [ref=e414]: "1"
+                    - generic [ref=e415]: Members
+                - generic [ref=e416]:
+                  - link "View Cases" [ref=e417] [cursor=pointer]:
+                    - /url: /projects/ae02a79f-83ca-47f4-95f2-671bb93b5077/cases
+                    - img [ref=e418]
+                    - text: View Cases
+                  - link "View Runs" [ref=e420] [cursor=pointer]:
+                    - /url: /projects/ae02a79f-83ca-47f4-95f2-671bb93b5077/runs
+                    - img [ref=e421]
+                    - text: View Runs
+  - generic [ref=e41]:
+    - img [ref=e43]
+    - button "Open Tanstack query devtools" [ref=e91] [cursor=pointer]:
+      - img [ref=e92]
+  - alert [ref=e40]

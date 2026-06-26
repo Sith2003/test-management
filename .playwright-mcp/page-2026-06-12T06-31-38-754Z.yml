@@ -1,0 +1,28 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - img "QA" [ref=e7]
+      - generic [ref=e8]:
+        - paragraph [ref=e9]: Quality Intelligence
+        - paragraph [ref=e10]: Inspect. Analyze. Improve.
+    - generic [ref=e11]:
+      - generic [ref=e12]:
+        - heading "Welcome back" [level=1] [ref=e13]
+        - paragraph [ref=e14]: Sign in to your account to continue
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - generic [ref=e17]: Email address
+          - textbox "you@example.com" [ref=e19]
+        - generic [ref=e20]:
+          - generic [ref=e21]: Password
+          - textbox "••••••••" [ref=e23]
+        - button "Sign in" [ref=e24] [cursor=pointer]
+      - generic [ref=e25]:
+        - generic [ref=e28]: Quick login
+        - generic [ref=e30]:
+          - button "Admin" [ref=e31] [cursor=pointer]: Admin
+          - button "Manager" [ref=e33] [cursor=pointer]: Manager
+          - button "Tester" [ref=e35] [cursor=pointer]: Tester
+          - button "Developer" [ref=e37] [cursor=pointer]: Developer
+    - paragraph [ref=e39]: © 2025 Quality Intelligence
+  - alert [ref=e40]

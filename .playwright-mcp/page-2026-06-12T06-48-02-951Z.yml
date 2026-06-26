@@ -1,0 +1,88 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - img "QA" [ref=e6]
+        - generic [ref=e7]: Quality Intelligence
+      - navigation [ref=e8]:
+        - link "Dashboard" [ref=e9] [cursor=pointer]:
+          - /url: /dashboard
+          - img [ref=e11]
+          - text: Dashboard
+        - link "Projects" [ref=e13] [cursor=pointer]:
+          - /url: /projects
+          - img [ref=e15]
+          - text: Projects
+        - generic [ref=e17]:
+          - paragraph [ref=e18]: Project
+          - generic [ref=e19]:
+            - link "Overview" [ref=e20] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/overview
+              - img [ref=e22]
+              - text: Overview
+            - link "Reports" [ref=e24] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/reports
+              - img [ref=e26]
+              - text: Reports
+            - link "Test Cases" [ref=e28] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/cases
+              - img [ref=e30]
+              - text: Test Cases
+            - link "Test Runs" [ref=e32] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/runs
+              - img [ref=e34]
+              - text: Test Runs
+            - link "Test Plans" [ref=e36] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/plans
+              - img [ref=e38]
+              - text: Test Plans
+            - link "Defect Log" [ref=e40] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/defects
+              - img [ref=e42]
+              - text: Defect Log
+            - link "Requirements" [ref=e44] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/requirements
+              - img [ref=e46]
+              - text: Requirements
+            - link "Daily Checklist" [ref=e48] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/checklist
+              - img [ref=e50]
+              - text: Daily Checklist
+            - link "UAT" [ref=e52] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/uat
+              - img [ref=e54]
+              - text: UAT
+            - link "Ad-Hoc Cases" [ref=e56] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/adhoc
+              - img [ref=e58]
+              - text: Ad-Hoc Cases
+            - link "Import" [ref=e60] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/upload
+              - img [ref=e62]
+              - text: Import
+            - link "Settings" [ref=e64] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/settings
+              - img [ref=e66]
+              - text: Settings
+        - generic [ref=e69]:
+          - paragraph [ref=e70]: Admin
+          - link "User Management" [ref=e72] [cursor=pointer]:
+            - /url: /admin/users
+            - img [ref=e74]
+            - text: User Management
+    - generic [ref=e76]:
+      - banner [ref=e77]:
+        - button "Notifications" [ref=e79] [cursor=pointer]:
+          - img [ref=e80]
+        - link "A Admin User ADMIN" [ref=e82] [cursor=pointer]:
+          - /url: /profile
+          - generic [ref=e83]: A
+          - generic [ref=e84]:
+            - paragraph [ref=e85]: Admin User
+            - paragraph [ref=e86]: ADMIN
+        - button "Sign out" [ref=e87] [cursor=pointer]:
+          - img [ref=e88]
+          - generic [ref=e90]: Sign out
+      - main [ref=e91]:
+        - img "Loading" [ref=e93]
+  - alert [ref=e96]

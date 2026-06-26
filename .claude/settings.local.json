@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.google.com)",
+      "mcp__google-sheets__sheets_get_metadata",
+      "mcp__google-sheets__sheets_batch_get_values",
+      "mcp__google-sheets__sheets_get_values",
+      "Bash(npx prisma:*)",
+      "Bash(do:*)",
+      "Bash(ls:*)",
+      "Bash(curl:*)",
+      "Bash(xargs grep:*)",
+      "Bash(taskkill:*)",
+      "Bash(cmd:*)",
+      "Bash(npm install:*)",
+      "Bash(node:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(netstat:*)",
+      "Bash(wmic process:*)",
+      "Bash(npm run:*)",
+      "Bash(find D:\\\\sith\\\\test-management\\\\client\\\\src\\\\app:*)",
+      "Bash(/d/sith/test-management/server/prisma/schema.prisma:*)",
+      "Bash(dir:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx ts-node:*)",
+      "Bash(find D:\\\\sith\\\\test-management\\\\client\\\\src\\\\app\\\\\\(main\\)\\\\projects\\\\[projectId]\\\\requirements:*)",
+      "Bash(find:*)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_take_screenshot",
+      "mcp__playwright__browser_evaluate",
+      "mcp__playwright__browser_console_messages",
+      "Bash(sed:*)",
+      "mcp__figma-remote-mcp__get_design_context",
+      "Bash(python3:*)",
+      "Bash(python:*)",
+      "Bash(done)"
+    ]
+  }
+}

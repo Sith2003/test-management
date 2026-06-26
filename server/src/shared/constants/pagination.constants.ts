@@ -1,0 +1,21 @@
+export const PAGINATION = {
+  DEFAULT_PAGE: 1,
+  DEFAULT_LIMIT: 20,
+  MAX_LIMIT: 500,
+  MIN_LIMIT: 1,
+  MAX_PAGE: 10000,
+} as const;
+
+export const SEARCH = {
+  MAX_LENGTH: 100,
+  MIN_LENGTH: 2,
+} as const;
+
+export const RATE_LIMITS = {
+  DEFAULT_TTL: 60000,
+  DEFAULT_LIMIT: 100,
+  LOGIN_TTL: 900000,
+  LOGIN_LIMIT: 50,
+  UPLOAD_TTL: 60000,
+  UPLOAD_LIMIT: 10,
+} as const;

@@ -1,0 +1,710 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ───────────────────────────────────────────────────────────────────
+
+enum UserRole {
+  ADMIN
+  MANAGER
+  QA
+  VIEWER
+  DEVELOPER
+}
+
+enum ProjectMemberRole {
+  ADMIN
+  MANAGER
+  QA
+  VIEWER
+}
+
+enum Priority {
+  CRITICAL
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum CaseStatus {
+  ACTIVE
+  DRAFT
+  ARCHIVED
+}
+
+enum RunStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  ABORTED
+}
+
+enum ResultStatus {
+  PENDING
+  PASS
+  FAIL
+  BLOCKED
+  SKIPPED
+}
+
+enum Severity {
+  CRITICAL
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum TestType {
+  FUNCTIONAL
+  NON_FUNCTIONAL
+  INTEGRATION
+  REGRESSION
+  SMOKE
+  UAT
+  PERFORMANCE
+  SECURITY
+}
+
+enum TestEnvironment {
+  STAGING
+  DEV
+  UAT
+  PRODUCTION
+}
+
+enum AutomationStatus {
+  MANUAL
+  AUTOMATED
+  IN_PROGRESS
+}
+
+enum ReviewStatus {
+  DRAFT
+  READY
+  IN_REVIEW
+  APPROVED
+  REJECTED
+}
+
+enum PlatformPortal {
+  WEB_PORTAL
+  MOBILE_APP
+  API
+  ADMIN_PORTAL
+}
+
+enum UrgencyFlag {
+  NORMAL
+  HIGH
+  CRITICAL
+}
+
+enum PlanStatus {
+  DRAFT
+  ACTIVE
+  COMPLETED
+  ARCHIVED
+}
+
+enum DefectStatus {
+  OPEN
+  IN_PROGRESS
+  FIXED
+  RETEST
+  VERIFIED
+  REOPENED
+  CLOSED
+  WONTFIX
+}
+
+enum AdhocStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  ESCALATED
+}
+
+enum UatSessionStatus {
+  PLANNED
+  IN_PROGRESS
+  SIGNED_OFF
+  REJECTED
+}
+
+enum UatResultStatus {
+  PENDING
+  PASS
+  FAIL
+  BLOCKED
+}
+
+enum ChecklistEntryStatus {
+  PENDING
+  DONE
+  SKIPPED
+  BLOCKED
+}
+
+enum NotificationType {
+  REVIEW_REQUESTED
+  REVIEW_APPROVED
+  REVIEW_REJECTED
+  DEFECT_ASSIGNED
+  RESULT_ASSIGNED
+  COMMENT_ADDED
+  DEFECT_STATUS_CHANGED
+  TEST_RUN_COMPLETED
+}
+
+// ─── Models ──────────────────────────────────────────────────────────────────
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      UserRole @default(QA)
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  projectMembers      ProjectMember[]
+  createdProjects     Project[]          @relation("ProjectCreator")
+  testCases           TestCase[]         @relation("TestCaseCreator")
+  testRuns            TestRun[]          @relation("TestRunCreator")
+  assignedResults     TestResult[]       @relation("ResultAssignee")
+  createdDefects      Defect[]           @relation("DefectCreator")
+  assignedDefects     Defect[]           @relation("DefectAssignee")
+  verifiedDefects     Defect[]           @relation("DefectVerifier")
+  defectComments      DefectComment[]    @relation("DefectCommentAuthor")
+  testCaseComments    TestCaseComment[]  @relation("TestCaseCommentAuthor")
+  checklistSessions   ChecklistSession[] @relation("ChecklistSessionCreator")
+  checklistEntries    ChecklistEntry[]   @relation("ChecklistEntryCompleter")
+  createdUatSessions  UatSession[]       @relation("UatSessionCreator")
+  signedOffSessions   UatSession[]       @relation("UatSessionSignOff")
+  uatResults          UatResult[]        @relation("UatResultTester")
+  createdAdhocCases   AdhocCase[]        @relation("AdhocCreator")
+  assignedAdhocCases  AdhocCase[]        @relation("AdhocAssignedQa")
+  createdTestPlans     TestPlan[]        @relation("TestPlanCreator")
+  testPlanAssignments  TestPlanAssignee[] @relation("TestPlanAssignee")
+  activityLogs         ActivityLog[]
+  notifications        Notification[]
+
+  @@map("users")
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  key         String   @unique
+  logoUrl     String?  @map("logo_url")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdById String   @map("created_by_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  createdBy         User               @relation("ProjectCreator", fields: [createdById], references: [id])
+  members           ProjectMember[]
+  testSuites        TestSuite[]
+  testCases         TestCase[]
+  testRuns          TestRun[]
+  requirements      Requirement[]
+  defects           Defect[]
+  checklistItems    ChecklistItem[]
+  checklistSessions ChecklistSession[]
+  uatSessions       UatSession[]
+  adhocCases        AdhocCase[]
+  testPlans         TestPlan[]
+  activityLogs      ActivityLog[]
+
+  @@map("projects")
+}
+
+model ProjectMember {
+  id        String            @id @default(uuid())
+  projectId String            @map("project_id")
+  userId    String            @map("user_id")
+  role      ProjectMemberRole @default(QA)
+  createdAt DateTime          @default(now()) @map("created_at")
+  updatedAt DateTime          @updatedAt @map("updated_at")
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, userId])
+  @@map("project_members")
+}
+
+model TestSuite {
+  id          String   @id @default(uuid())
+  projectId   String   @map("project_id")
+  parentId    String?  @map("parent_id")
+  name        String
+  description String?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  project   Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  parent    TestSuite?  @relation("SuiteChildren", fields: [parentId], references: [id])
+  children  TestSuite[] @relation("SuiteChildren")
+  testCases TestCase[]
+
+  @@map("test_suites")
+}
+
+model TestCase {
+  id                  String           @id @default(uuid())
+  projectId           String           @map("project_id")
+  suiteId             String?          @map("suite_id")
+  caseId              String           @map("case_id")
+  title               String
+  description         String?
+  preconditions       String?
+  scenario            String?          @map("scenario")
+  testData            String?          @map("test_data")
+  expectedResult      String?          @map("expected_result")
+  priority            Priority         @default(MEDIUM)
+  severity            Severity?
+  status              CaseStatus       @default(ACTIVE)
+  testType            TestType?        @map("test_type")
+  testEnvironment     TestEnvironment? @map("test_environment")
+  automationStatus    AutomationStatus @default(MANUAL) @map("automation_status")
+  reviewStatus        ReviewStatus     @default(DRAFT) @map("review_status")
+  reviewComment       String?          @map("review_comment")
+  platformPortal      PlatformPortal?  @map("platform_portal")
+  developmentSource   String?          @map("development_source")
+  requirementId       String?          @map("requirement_id")
+  assignedDeveloper   String?          @map("assigned_developer")
+  requestType         String?          @map("request_type")
+  urgencyFlag         UrgencyFlag      @default(NORMAL) @map("urgency_flag")
+  sourceRequestor     String?          @map("source_requestor")
+  impactAssessment    String?          @map("impact_assessment")
+  designScreenshotUrl String?          @map("design_screenshot_url")
+  lastExecutionStatus ResultStatus?    @map("last_execution_status")
+  lastActualResult    String?          @map("last_actual_result")
+  lastEvidenceUrl     String?          @map("last_evidence_url")
+  notesFindings       String?          @map("notes_findings")
+  qaSuggestion        String?          @map("qa_suggestion")
+  pmDecision          String?          @map("pm_decision")
+  tags                String[]         @default([])
+  createdById         String           @map("created_by_id")
+  createdAt           DateTime         @default(now()) @map("created_at")
+  updatedAt           DateTime         @updatedAt @map("updated_at")
+
+  project      Project               @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  suite        TestSuite?            @relation(fields: [suiteId], references: [id], onDelete: Cascade)
+  createdBy    User                  @relation("TestCaseCreator", fields: [createdById], references: [id])
+  steps        TestStep[]
+  testResults  TestResult[]
+  requirements RequirementTestCase[]
+  defects      Defect[]
+  uatResults   UatResult[]
+  adhocRelated AdhocCase[]           @relation("AdhocRelatedTc")
+  adhocConverted AdhocCase[]         @relation("AdhocConvertedTc")
+  comments     TestCaseComment[]
+
+  @@unique([projectId, caseId])
+  @@map("test_cases")
+}
+
+model TestStep {
+  id             String   @id @default(uuid())
+  testCaseId     String   @map("test_case_id")
+  order          Int
+  action         String
+  expectedResult String?  @map("expected_result")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  testCase TestCase @relation(fields: [testCaseId], references: [id], onDelete: Cascade)
+
+  @@map("test_steps")
+}
+
+model TestRun {
+  id          String    @id @default(uuid())
+  projectId   String    @map("project_id")
+  name        String
+  description String?
+  status      RunStatus @default(PENDING)
+  sprint      String?
+  version     String?
+  planId      String?   @map("plan_id")
+  createdById String    @map("created_by_id")
+  startedAt   DateTime? @map("started_at")
+  completedAt DateTime? @map("completed_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  project   Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdBy User         @relation("TestRunCreator", fields: [createdById], references: [id])
+  results   TestResult[]
+  plan      TestPlan?    @relation(fields: [planId], references: [id])
+
+  @@map("test_runs")
+}
+
+model TestResult {
+  id          String       @id @default(uuid())
+  runId       String       @map("run_id")
+  testCaseId  String       @map("test_case_id")
+  assigneeId  String?      @map("assignee_id")
+  status      ResultStatus @default(PENDING)
+  notes       String?
+  evidenceUrl String?      @map("evidence_url")
+  duration    Int?
+  executedAt  DateTime?    @map("executed_at")
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+
+  run      TestRun  @relation(fields: [runId], references: [id], onDelete: Cascade)
+  testCase TestCase @relation(fields: [testCaseId], references: [id], onDelete: Cascade)
+  assignee User?    @relation("ResultAssignee", fields: [assigneeId], references: [id])
+  defects  Defect[]
+
+  @@unique([runId, testCaseId])
+  @@map("test_results")
+}
+
+model Requirement {
+  id          String   @id @default(uuid())
+  projectId   String   @map("project_id")
+  reqId       String   @map("req_id")
+  title       String
+  description String?
+  externalId  String?  @map("external_id")
+  priority    Priority @default(MEDIUM)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  project   Project               @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  testCases RequirementTestCase[]
+  documents RequirementDocument[]
+
+  @@unique([projectId, reqId])
+  @@map("requirements")
+}
+
+model RequirementDocument {
+  id            String      @id @default(uuid())
+  requirementId String      @map("requirement_id")
+  name          String
+  url           String
+  size          Int
+  mimeType      String      @map("mime_type")
+  uploadedAt    DateTime    @default(now()) @map("uploaded_at")
+
+  requirement   Requirement @relation(fields: [requirementId], references: [id], onDelete: Cascade)
+
+  @@map("requirement_documents")
+}
+
+model RequirementTestCase {
+  id            String   @id @default(uuid())
+  requirementId String   @map("requirement_id")
+  testCaseId    String   @map("test_case_id")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  requirement Requirement @relation(fields: [requirementId], references: [id], onDelete: Cascade)
+  testCase    TestCase    @relation(fields: [testCaseId], references: [id], onDelete: Cascade)
+
+  @@unique([requirementId, testCaseId])
+  @@map("requirement_test_cases")
+}
+
+// ─── Defect Log ──────────────────────────────────────────────────────────────
+
+model Defect {
+  id               String       @id @default(uuid())
+  projectId        String       @map("project_id")
+  defectId         String       @map("defect_id")
+  testCaseId       String?      @map("test_case_id")
+  module           String?
+  title            String
+  description      String?
+  stepsToReproduce String?      @map("steps_to_reproduce")
+  expectedResult   String?      @map("expected_result")
+  actualResult     String?      @map("actual_result")
+  severity         Severity     @default(MEDIUM)
+  priority         Priority     @default(MEDIUM)
+  status           DefectStatus @default(OPEN)
+  assignedToId     String?      @map("assigned_to_id")
+  relatedDefectId  String?      @map("related_defect_id")
+  bugPattern       String?      @map("bug_pattern")
+  attachmentUrls   String[]     @default([]) @map("attachment_urls")
+  testResultId     String?      @map("test_result_id")
+  retestCount      Int          @default(0) @map("retest_count")
+  fixedAt          DateTime?    @map("fixed_at")
+  verifiedAt       DateTime?    @map("verified_at")
+  verifiedById     String?      @map("verified_by_id")
+  createdById      String       @map("created_by_id")
+  createdAt        DateTime     @default(now()) @map("created_at")
+  updatedAt        DateTime     @updatedAt @map("updated_at")
+
+  project       Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  testCase      TestCase?      @relation(fields: [testCaseId], references: [id])
+  testResult    TestResult?    @relation(fields: [testResultId], references: [id])
+  assignedTo    User?          @relation("DefectAssignee", fields: [assignedToId], references: [id])
+  verifiedBy    User?          @relation("DefectVerifier", fields: [verifiedById], references: [id])
+  createdBy     User           @relation("DefectCreator", fields: [createdById], references: [id])
+  relatedDefect Defect?        @relation("RelatedDefects", fields: [relatedDefectId], references: [id])
+  relatedTo     Defect[]       @relation("RelatedDefects")
+  comments      DefectComment[]
+
+  @@unique([projectId, defectId])
+  @@map("defects")
+}
+
+// ─── Daily QA Checklist ──────────────────────────────────────────────────────
+
+model ChecklistItem {
+  id        String   @id @default(uuid())
+  projectId String   @map("project_id")
+  title     String
+  order     Int      @default(0)
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  project Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  entries ChecklistEntry[]
+
+  @@map("checklist_items")
+}
+
+model ChecklistSession {
+  id          String   @id @default(uuid())
+  projectId   String   @map("project_id")
+  date        DateTime @db.Date
+  createdById String   @map("created_by_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  project   Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdBy User             @relation("ChecklistSessionCreator", fields: [createdById], references: [id])
+  entries   ChecklistEntry[]
+
+  @@unique([projectId, date])
+  @@map("checklist_sessions")
+}
+
+model ChecklistEntry {
+  id            String               @id @default(uuid())
+  sessionId     String               @map("session_id")
+  itemId        String               @map("item_id")
+  status        ChecklistEntryStatus @default(PENDING)
+  notes         String?
+  completedById String?              @map("completed_by_id")
+  completedAt   DateTime?            @map("completed_at")
+  createdAt     DateTime             @default(now()) @map("created_at")
+  updatedAt     DateTime             @updatedAt @map("updated_at")
+
+  session     ChecklistSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  item        ChecklistItem    @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  completedBy User?            @relation("ChecklistEntryCompleter", fields: [completedById], references: [id])
+
+  @@unique([sessionId, itemId])
+  @@map("checklist_entries")
+}
+
+// ─── UAT Test & Sign-Off ─────────────────────────────────────────────────────
+
+model UatSession {
+  id             String           @id @default(uuid())
+  projectId      String           @map("project_id")
+  sessionId      String           @map("session_id")
+  name           String
+  version        String?
+  environmentUrl String?          @map("environment_url")
+  uatStartDate   DateTime?        @db.Date @map("uat_start_date")
+  uatEndDate     DateTime?        @db.Date @map("uat_end_date")
+  supportContact String?          @map("support_contact")
+  status         UatSessionStatus @default(PLANNED)
+  signOffById    String?          @map("sign_off_by_id")
+  signOffNote    String?          @map("sign_off_note")
+  signedOffAt    DateTime?        @map("signed_off_at")
+  createdById    String           @map("created_by_id")
+  createdAt      DateTime         @default(now()) @map("created_at")
+  updatedAt      DateTime         @updatedAt @map("updated_at")
+
+  project   Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdBy User        @relation("UatSessionCreator", fields: [createdById], references: [id])
+  signOffBy User?       @relation("UatSessionSignOff", fields: [signOffById], references: [id])
+  results   UatResult[]
+
+  @@unique([projectId, sessionId])
+  @@map("uat_sessions")
+}
+
+model UatResult {
+  id           String          @id @default(uuid())
+  sessionId    String          @map("session_id")
+  testCaseId   String          @map("test_case_id")
+  testerId     String?         @map("tester_id")
+  status       UatResultStatus @default(PENDING)
+  actualResult String?         @map("actual_result")
+  evidenceUrl  String?         @map("evidence_url")
+  comments     String?
+  executedAt   DateTime?       @map("executed_at")
+  createdAt    DateTime        @default(now()) @map("created_at")
+  updatedAt    DateTime        @updatedAt @map("updated_at")
+
+  session  UatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  testCase TestCase   @relation(fields: [testCaseId], references: [id])
+  tester   User?      @relation("UatResultTester", fields: [testerId], references: [id])
+
+  @@unique([sessionId, testCaseId])
+  @@map("uat_results")
+}
+
+// ─── Ad-Hoc Special Cases ────────────────────────────────────────────────────
+
+model AdhocCase {
+  id                  String      @id @default(uuid())
+  projectId           String      @map("project_id")
+  adhocId             String      @map("adhoc_id")
+  requestDate         DateTime    @db.Date @map("request_date")
+  requestor           String
+  requestType         String?     @map("request_type")
+  urgency             UrgencyFlag @default(NORMAL)
+  sourceSystem        String?     @map("source_system")
+  module              String?
+  issueDescription    String      @map("issue_description")
+  impactAssessment    String?     @map("impact_assessment")
+  affectedEnvironment String?     @map("affected_environment")
+  testApproach        String?     @map("test_approach")
+  testStepsPerformed  String?     @map("test_steps_performed")
+  testDataUsed        String?     @map("test_data_used")
+  findings            String?
+  status              AdhocStatus @default(OPEN)
+  severity            Severity?
+  assignedQaId        String?     @map("assigned_qa_id")
+  assignedDeveloper   String?     @map("assigned_developer")
+  relatedBugId        String?     @map("related_bug_id")
+  relatedTcId         String?     @map("related_tc_id")
+  relatedTestCaseId   String?     @map("related_test_case_id")
+  resolution          String?
+  completionDate      DateTime?   @db.Date @map("completion_date")
+  convertedToTc       Boolean     @default(false) @map("converted_to_tc")
+  convertedTcId       String?     @map("converted_tc_id")
+  notes               String?
+  createdById         String      @map("created_by_id")
+  createdAt           DateTime    @default(now()) @map("created_at")
+  updatedAt           DateTime    @updatedAt @map("updated_at")
+
+  project        Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdBy      User      @relation("AdhocCreator", fields: [createdById], references: [id])
+  assignedQa     User?     @relation("AdhocAssignedQa", fields: [assignedQaId], references: [id])
+  relatedTc      TestCase? @relation("AdhocRelatedTc", fields: [relatedTestCaseId], references: [id])
+  convertedTc    TestCase? @relation("AdhocConvertedTc", fields: [convertedTcId], references: [id])
+
+  @@unique([projectId, adhocId])
+  @@map("adhoc_cases")
+}
+
+// ─── Defect Comments ─────────────────────────────────────────────────────────
+
+model DefectComment {
+  id        String   @id @default(uuid())
+  defectId  String   @map("defect_id")
+  authorId  String   @map("author_id")
+  content   String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  defect Defect @relation(fields: [defectId], references: [id], onDelete: Cascade)
+  author User   @relation("DefectCommentAuthor", fields: [authorId], references: [id])
+
+  @@map("defect_comments")
+}
+
+// ─── Test Plans ───────────────────────────────────────────────────────────────
+
+model TestPlan {
+  id          String     @id @default(uuid())
+  projectId   String     @map("project_id")
+  name        String
+  sprint      String?
+  version     String?
+  description String?
+  targetDate  DateTime?  @map("target_date")
+  status      PlanStatus @default(DRAFT)
+  createdById String     @map("created_by_id")
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @updatedAt @map("updated_at")
+
+  project   Project            @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdBy User               @relation("TestPlanCreator", fields: [createdById], references: [id])
+  testRuns  TestRun[]
+  assignees TestPlanAssignee[]
+
+  @@map("test_plans")
+}
+
+model TestPlanAssignee {
+  id     String @id @default(uuid())
+  planId String @map("plan_id")
+  userId String @map("user_id")
+
+  plan TestPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  user User     @relation("TestPlanAssignee", fields: [userId], references: [id])
+
+  @@unique([planId, userId])
+  @@map("test_plan_assignees")
+}
+
+// ─── Activity Log ─────────────────────────────────────────────────────────────
+
+model ActivityLog {
+  id         String   @id @default(uuid())
+  projectId  String   @map("project_id")
+  userId     String   @map("user_id")
+  action     String
+  entityType String   @map("entity_type")
+  entityId   String   @map("entity_id")
+  entityName String   @map("entity_name")
+  diff       Json?
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@index([projectId, createdAt(sort: Desc)])
+  @@map("activity_logs")
+}
+
+model TestCaseComment {
+  id         String   @id @default(uuid())
+  testCaseId String   @map("test_case_id")
+  authorId   String   @map("author_id")
+  content    String
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  testCase TestCase @relation(fields: [testCaseId], references: [id], onDelete: Cascade)
+  author   User     @relation("TestCaseCommentAuthor", fields: [authorId], references: [id])
+
+  @@index([testCaseId, createdAt(sort: Asc)])
+  @@map("test_case_comments")
+}
+
+model Notification {
+  id        String           @id @default(uuid())
+  userId    String           @map("user_id")
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      NotificationType
+  title     String
+  message   String
+  link      String?
+  isRead    Boolean          @default(false) @map("is_read")
+  createdAt DateTime         @default(now()) @map("created_at")
+
+  @@index([userId, createdAt(sort: Desc)])
+  @@map("notifications")
+}

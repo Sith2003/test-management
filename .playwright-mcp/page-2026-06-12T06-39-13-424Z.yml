@@ -1,0 +1,138 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - img "QA" [ref=e6]
+        - generic [ref=e7]: Quality Intelligence
+      - navigation [ref=e8]:
+        - link "Dashboard" [ref=e9] [cursor=pointer]:
+          - /url: /dashboard
+          - img [ref=e11]
+          - text: Dashboard
+        - link "Projects" [ref=e13] [cursor=pointer]:
+          - /url: /projects
+          - img [ref=e15]
+          - text: Projects
+        - generic [ref=e17]:
+          - paragraph [ref=e18]: Project
+          - generic [ref=e19]:
+            - link "Test Cases" [ref=e20] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/cases
+              - img [ref=e22]
+              - text: Test Cases
+            - link "Test Runs" [ref=e24] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/runs
+              - img [ref=e26]
+              - text: Test Runs
+            - link "Test Plans" [ref=e28] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/plans
+              - img [ref=e30]
+              - text: Test Plans
+            - link "Defect Log" [ref=e32] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/defects
+              - img [ref=e34]
+              - text: Defect Log
+            - link "Requirements" [ref=e36] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/requirements
+              - img [ref=e38]
+              - text: Requirements
+            - link "Daily Checklist" [ref=e40] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/checklist
+              - img [ref=e42]
+              - text: Daily Checklist
+            - link "UAT" [ref=e44] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/uat
+              - img [ref=e46]
+              - text: UAT
+            - link "Ad-Hoc Cases" [ref=e48] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/adhoc
+              - img [ref=e50]
+              - text: Ad-Hoc Cases
+            - link "Import" [ref=e52] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/upload
+              - img [ref=e54]
+              - text: Import
+            - link "Reports" [ref=e56] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/reports
+              - img [ref=e58]
+              - text: Reports
+            - link "Settings" [ref=e60] [cursor=pointer]:
+              - /url: /projects/57746261-d82c-434b-a693-fde5037af323/settings
+              - img [ref=e62]
+              - text: Settings
+        - generic [ref=e65]:
+          - paragraph [ref=e66]: Admin
+          - link "User Management" [ref=e68] [cursor=pointer]:
+            - /url: /admin/users
+            - img [ref=e70]
+            - text: User Management
+    - generic [ref=e72]:
+      - banner [ref=e73]:
+        - button "Notifications" [ref=e75] [cursor=pointer]:
+          - img [ref=e76]
+        - link "A Admin User ADMIN" [ref=e78] [cursor=pointer]:
+          - /url: /profile
+          - generic [ref=e79]: A
+          - generic [ref=e80]:
+            - paragraph [ref=e81]: Admin User
+            - paragraph [ref=e82]: ADMIN
+        - button "Sign out" [ref=e83] [cursor=pointer]:
+          - img [ref=e84]
+          - generic [ref=e86]: Sign out
+      - main [ref=e87]:
+        - generic [ref=e88]:
+          - generic [ref=e89]:
+            - generic [ref=e90]:
+              - heading "Reports" [level=1] [ref=e91]
+              - paragraph [ref=e92]: Test metrics and analytics for this project
+            - button "Download PDF" [ref=e94] [cursor=pointer]:
+              - img [ref=e95]
+              - text: Download PDF
+          - generic [ref=e97]:
+            - generic [ref=e98]:
+              - generic [ref=e100]:
+                - heading "Release Readiness" [level=2] [ref=e101]
+                - paragraph [ref=e102]: Go / No-Go decision support
+              - img "Loading" [ref=e104]
+            - generic [ref=e107]:
+              - generic [ref=e109]:
+                - heading "Sprint / Version Summary" [level=2] [ref=e110]
+                - paragraph [ref=e111]: Select a sprint or version to see the summary
+              - img "Loading" [ref=e113]
+            - generic [ref=e116]:
+              - img "Loading" [ref=e118]
+              - img "Loading" [ref=e122]
+              - img "Loading" [ref=e126]
+              - img "Loading" [ref=e130]
+            - generic [ref=e133]:
+              - generic [ref=e134]:
+                - heading "Run History" [level=2] [ref=e135]
+                - paragraph [ref=e136]: Results across the last 10 test runs
+              - img "Loading" [ref=e138]
+            - generic [ref=e141]:
+              - generic [ref=e142]:
+                - heading "Suite Breakdown" [level=2] [ref=e143]
+                - paragraph [ref=e144]: Test execution results by suite
+              - img "Loading" [ref=e146]
+            - generic [ref=e149]:
+              - generic [ref=e150]:
+                - generic [ref=e151]:
+                  - heading "Defect Trend" [level=2] [ref=e152]
+                  - paragraph [ref=e153]: Open vs closed defects over the last 30 days
+                - img "Loading" [ref=e155]
+              - generic [ref=e158]:
+                - generic [ref=e159]:
+                  - heading "Pass Rate Trend" [level=2] [ref=e160]
+                  - paragraph [ref=e161]: Pass rate % per test run
+                - img "Loading" [ref=e163]
+            - generic [ref=e166]:
+              - generic [ref=e167]:
+                - heading "Automation Coverage" [level=2] [ref=e168]
+                - paragraph [ref=e169]: Breakdown of test cases by automation status
+              - img "Loading" [ref=e171]
+            - generic [ref=e174]:
+              - generic [ref=e175]:
+                - heading "Requirement Coverage" [level=2] [ref=e176]
+                - paragraph [ref=e177]: How many requirements are covered by test cases
+              - img "Loading" [ref=e179]
+  - alert [ref=e182]
