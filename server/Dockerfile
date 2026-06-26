@@ -7,7 +7,7 @@ RUN npm install
 
 COPY . .
 
-RUN npx prisma generate && npx nest build
+RUN npx prisma generate && node_modules/.bin/nest build
 
 EXPOSE 3001
 
