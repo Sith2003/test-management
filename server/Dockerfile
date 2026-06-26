@@ -1,5 +1,7 @@
 FROM node:20-alpine
 
+RUN apk add --no-cache openssl
+
 WORKDIR /app
 
 COPY package.json ./
@@ -7,7 +9,7 @@ RUN npm install
 
 COPY . .
 
-RUN npx prisma generate && node_modules/.bin/nest build
+RUN node_modules/.bin/prisma generate && node_modules/.bin/tsc -p tsconfig.json
 
 EXPOSE 3001
 
