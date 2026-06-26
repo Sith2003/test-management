@@ -122,7 +122,7 @@ export function UatExecutor({ projectId, sessionId }: UatExecutorProps) {
     session.status === UatSessionStatus.SIGNED_OFF ||
     session.status === UatSessionStatus.REJECTED;
 
-  const dateRange = formatDateRange(session.uatStartDate, session.uatEndDate);
+  const dateRange = session.uatStartDate ? formatDateRange(session.uatStartDate, session.uatEndDate) : null;
 
   return (
     <div className="space-y-5">
